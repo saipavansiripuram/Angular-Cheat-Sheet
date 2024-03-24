@@ -307,17 +307,22 @@ Angular has a few pipes built-in.
 
 ---
 
----
 
 ## Decorators
 
 Angular provides decorators that can be applied to classes and fields for various purposes.
 
-| Decorator     | Example                    | Description                                                                                                                                                           |
-|---------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| @Input()      | @Input() myProperty        | A property can be updated through property binding.                                                                                                                   |
-| @Output()     | @Output() myEvent = new EventEmitter(); | A property that can fire events and can be subscribed to with event binding on a component.                                                                          |
-| @HostBinding()| @HostBinding('class.valid') isValid | Binds a host element property (here, the CSS class valid)
+
+| Decorator          | Example                                   | Description                                                                                           |
+|--------------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| @Input()           | @Input() myProperty                      | A property can be updated through property binding.                                                   |
+| @Output()          | @Output() myEvent = new EventEmitter();  | A property that can fire events and can be subscribed to with event binding on a component.           |
+| @HostBinding()     | @HostBinding('class.valid') isValid      | Binds a host element property (here, the CSS class valid)                                             |
+| @HostListener()    | @HostListener('click', ['$event']) onClick(e) {...} | Subscribes to an event on a host element, such as a click event, and runs a method when that event is emitted. You can optionally accept the `$event` object. |
+| @ContentChild()    | @ContentChild(myPredicate) myChildComponent; | Binds the first result of the component content query (myPredicate) to a property (myChildComponent) of the class. |
+| @ContentChildren() | @ContentChildren(myPredicate) myChildComponents; | Binds the results of the component content query (myPredicate) to a property (myChildComponents) of the class. |
+| @ViewChild()       | @ViewChild(myPredicate) myChildComponent; | Binds the first result of the component view query (myPredicate) to a property (myChildComponent) of the class. Not available for directives. |
+| @ViewChildren()    | @ViewChildren(myPredicate) myChildComponents; | Binds the results of the component view query (myPredicate) to a property (myChildComponents) of the class. Not available for directives. |
 
 ---
 
