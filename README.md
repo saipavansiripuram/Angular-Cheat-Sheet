@@ -108,19 +108,58 @@ Angular components emit events during and after initialization. Lifecycle hooks 
 
 ## Services
 
-Services are objects for outsourcing logic and data that can be injected into components. They are useful for reusing code across components.
+Services are objects for outsourcing logic and data that can be injected into components. They are useful for reusing code across components.For medium-sized apps, they can serve as an alternative to state management libraries.
 
 ### Creating a Service:
 
+We can create services with commands:
+
+### Common
 ```bash
 ng generate service MyService
 ```
+
+### Shorthand
+```bash
+ng g s MyService
+```
+
+Services are not standalone. Typically, they're injected into other areas of our app, most commonly in components. There are two steps for injecting a service. First, we must add the `@Injectable()` decorator.
+
+```typescript
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class MyService {
+  constructor() { }
+}
+```
+
+Secondly, we must tell Angular where to inject this class. There are three options at our disposal.
+
+1. **Injectable Decorator:** This option is the most common route. It allows the service to be injectable anywhere in our app.
+
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+```
+
 
 ---
 
 ## Modules
 
-Angular enhances JavaScript's modularity with its own module system. Modules can register components, services, directives, and pipes.
+Angular enhances JavaScript's modularity with its own module system. Classes decorated with the `@NgModule()` decorator can register components, services, directives, and pipes.
+
+The following options can be added to a module:
+
+- `declarations`: List of components, directives, and pipes that belong to this module.
+- `imports`: List of modules to import into this module. Everything from the imported modules is available to declarations of this module.
+- `exports`: List of components, directives, and pipes visible to modules that import this module.
+- `providers`: List of dependency injection providers visible both to the contents of this module and to importers of this module.
+- `bootstrap`: List of components to bootstrap when this module is bootstrapped.
+
 
 ### Example AppModule:
 ```typescript
@@ -146,29 +185,103 @@ Directives modify the behavior of elements and components in Angular application
 
 ### Attribute Directives:
 
+An attribute directive is a directive that changes the appearance or behavior of an element, component, or another directive.
+
+Angular exports the following attribute directives:
+
 - NgClass
 - NgStyle
 - NgModel
 
+Detailed Explaination
+
+- **NgClass**: Adds and removes a set of CSS classes.
+  ```html
+  <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
+  ```
+
+- **NgStyle**: Adds and removes a set of HTML styles.
+  ```html
+  <div [ngStyle]="{ 'font-weight': 2 + 2 === 4 ? 'bold' : 'normal' }">This div is initially bold.</div>
+  ```
+
+- **NgModel**: Adds two-way data binding to an HTML form element. (Requires FormsModule to be imported into the NgModule)
+  
+  ```typescript
+  import { FormsModule } from '@angular/forms';
+
+  @NgModule({
+    imports: [FormsModule]
+  })
+  ```
+  
+  ```html
+  <label for="example-ngModel">[(ngModel)]:</label>
+  <input [(ngModel)]="currentItem.name" id="example-ngModel">
+  ```
+
+
 ### Structural Directives:
+
+Structural directives change the DOM layout by adding and removing DOM elements. Here are the most common structural directives in Angular:
 
 - NgIf
 - NgFor
 - NgSwitch
 
-## Creating Directives
+Detailed Explaination
+
+- **NgIf**: Conditionally creates or removes elements from the template.
+  ```html
+  <p *ngIf="isActive">Hello World!</p>
+  ```
+
+- **NgFor**: Loops through an element in a list/array.
+  ```html
+  <div *ngFor="let item of items">{{ item.name }}</div>
+  ```
+
+- **NgSwitch**: Conditionally renders elements using a switch-like syntax.
+  ```html
+  <ul [ngSwitch]="food">
+    <li *ngSwitchCase="'Burger'">Burger</li>
+    <li *ngSwitchCase="'Pizza'">Pizza</li>
+    <li *ngSwitchCase="'Spaghetti'">Spaghetti</li>
+    <li *ngSwitchDefault>French Fries</li>
+  </ul>
+  ```
+
+
+
+## Custom Directives
 
 Directives in Angular allow you to create custom HTML elements and attributes. They can be used to extend the behavior of existing DOM elements or create entirely new ones.
-
-### Common Directives:
-
-- **Attribute Directives:** These modify the behavior or appearance of an element.
-- **Structural Directives:** These change the structure of the DOM by adding or removing elements.
 
 ### Creating a Directive:
 
 ```bash
 ng generate directive MyDirective
+```
+
+
+### Shorthand
+```bash
+ng g d MyDirective
+```
+
+To identify directives, classes are decorated with the `@Directive()` decorator. Here's what a common directive would look like:
+
+```typescript
+import { Directive, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appMyDirective]'
+})
+export class appMyDirective {
+  constructor(private elRef: ElementRef) {
+    eleRef.nativeElement.style.background = 'red';
+  }
+}
 ```
 
 ---
@@ -177,13 +290,22 @@ ng generate directive MyDirective
 
 Pipes transform content in templates without directly affecting data. Angular provides several built-in pipes.
 
-### Examples:
-- DatePipe
-- UpperCasePipe
-- LowerCasePipe
-- CurrencyPipe
-- DecimalPipe
-- PercentPipe
+```html
+{{ 'Hello world' | uppercase }}
+```
+
+Angular has a few pipes built-in.
+
+### Built-in Pipes:
+
+- **DatePipe**: Formats a date value according to locale rules.
+- **UpperCasePipe**: Transforms text to all uppercase.
+- **LowerCasePipe**: Transforms text to all lowercase.
+- **CurrencyPipe**: Transforms a number to a currency string, formatted according to locale rules.
+- **DecimalPipe**: Transforms a number into a string with a decimal point, formatted according to locale rules.
+- **PercentPipe**: Transforms a number to a percentage string, formatted according to locale rules.
+
+---
 
 ---
 
@@ -191,15 +313,11 @@ Pipes transform content in templates without directly affecting data. Angular pr
 
 Angular provides decorators that can be applied to classes and fields for various purposes.
 
-### Common Decorators:
-- @Input()
-- @Output()
-- @HostBinding()
-- @HostListener()
-- @ContentChild()
-- @ContentChildren()
-- @ViewChild()
-- @ViewChildren()
+| Decorator     | Example                    | Description                                                                                                                                                           |
+|---------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| @Input()      | @Input() myProperty        | A property can be updated through property binding.                                                                                                                   |
+| @Output()     | @Output() myEvent = new EventEmitter(); | A property that can fire events and can be subscribed to with event binding on a component.                                                                          |
+| @HostBinding()| @HostBinding('class.valid') isValid | Binds a host element property (here, the CSS class valid)
 
 ---
 
