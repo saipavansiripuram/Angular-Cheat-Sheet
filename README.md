@@ -15,7 +15,11 @@ Certainly! Below is the Markdown file for the Angular Cheat Sheet covering vario
 7. [Angular Directives](#angular-directives)
 8. [Pipes](#pipes)
 9. [Decorators](#decorators)
-10. [Useful Links](#useful-links)
+10. [Angular Routing](#angular-routing)
+11. [Angular HTTP Client](#angular-http-client)
+12. [Angular Testing](#angular-testing)
+13. [Useful Links](#useful-links)
+    
 
 ---
 
@@ -152,6 +156,21 @@ Directives modify the behavior of elements and components in Angular application
 - NgFor
 - NgSwitch
 
+## Creating Directives
+
+Directives in Angular allow you to create custom HTML elements and attributes. They can be used to extend the behavior of existing DOM elements or create entirely new ones.
+
+### Common Directives:
+
+- **Attribute Directives:** These modify the behavior or appearance of an element.
+- **Structural Directives:** These change the structure of the DOM by adding or removing elements.
+
+### Creating a Directive:
+
+```bash
+ng generate directive MyDirective
+```
+
 ---
 
 ## Pipes
@@ -181,27 +200,6 @@ Angular provides decorators that can be applied to classes and fields for variou
 - @ContentChildren()
 - @ViewChild()
 - @ViewChildren()
-
----
-
-## Angular Directives
-
-
-```markdown
-## Creating Directives
-
-Directives in Angular allow you to create custom HTML elements and attributes. They can be used to extend the behavior of existing DOM elements or create entirely new ones.
-
-### Common Directives:
-
-- **Attribute Directives:** These modify the behavior or appearance of an element.
-- **Structural Directives:** These change the structure of the DOM by adding or removing elements.
-
-### Creating a Directive:
-
-```bash
-ng generate directive MyDirective
-```
 
 ---
 
@@ -297,11 +295,9 @@ Angular provides tools and utilities for testing your application's components, 
 
 ---
 
-
 **Back To Top**
 
 
-Feel free to copy and use this part of the Angular Cheat Sheet as needed! Let me know if you require further assistance or additional information.
 ## Useful Links
 
 - [Angular Documentation](https://angular.io/docs)
