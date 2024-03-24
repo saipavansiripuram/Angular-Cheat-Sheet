@@ -1,7 +1,7 @@
 # Angular-Cheat-Sheet
 Certainly! Below is the Markdown file for the Angular Cheat Sheet covering various aspects of Angular development:
 
-```markdown
+
 # Angular Cheat Sheet: Zero To Mastery
 
 ## Table of Contents
