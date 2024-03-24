@@ -299,7 +299,7 @@ Angular provides tools and utilities for testing your application's components, 
 
 
 **Back To Top**
-```
+
 
 Feel free to copy and use this part of the Angular Cheat Sheet as needed! Let me know if you require further assistance or additional information.
 ## Useful Links
@@ -313,8 +313,5 @@ Feel free to copy and use this part of the Angular Cheat Sheet as needed! Let me
 
 ---
 
-
-```
-**Back To Top**
 
 Feel free to copy and paste each section as needed! Let me know if you need further assistance or modifications.
